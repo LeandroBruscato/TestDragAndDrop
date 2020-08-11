@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="TestDragAndDrop.UserControls.Control"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:ignore="https://galasoft.ch/ignore"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TestDragAndDrop.UserControls"
+             xmlns:ViewModels="clr-namespace:TestDragAndDrop.ViewModels"
+			 xmlns:Converter="clr-namespace:TestDragAndDrop.Converter"
+			 mc:Ignorable="d ignore" 
+             d:DesignHeight="450" d:DesignWidth="800"
+		     Width ="{Binding Path = Width,Mode=OneWay }"
+			 Height="{Binding Path = Height, Mode=OneWay }" 
+			 Drop="MyControl_Drop"
+			 AllowDrop="True"
+			 Name="MyControl"
+			 MouseMove="MyControl_MouseMove"
+			 MouseDown="MyControl_MouseDown"
+			 
+			 >
+			 <!--d:DataContext="{d:DesignInstance Type=ViewModels:Control, IsDesignTimeCreatable=True}"-->
+	<Border BorderBrush="Red" BorderThickness="2">
+
+		<ItemsControl 		ClipToBounds="True"
+			ItemsSource="{Binding Controls,Mode=OneWay }" >
+			<ItemsControl.ItemTemplate>
+				<DataTemplate >
+					<ContentControl Content="{Binding Converter={Converter:vmControlToUserControl} }"/>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+			<ItemsControl.ItemContainerStyle>
+				<Style TargetType="{x:Type FrameworkElement}">
+					<Setter Property="Canvas.Top" Value="{Binding Y}" />
+					<Setter Property="Canvas.Left" Value="{Binding X}" />
+				</Style>
+			</ItemsControl.ItemContainerStyle>
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<Canvas VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Aqua" />
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+		</ItemsControl>
+	</Border>
+</UserControl>
