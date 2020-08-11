@@ -91,7 +91,7 @@ namespace TestDragAndDrop
 				if (e.LeftButton == MouseButtonState.Pressed)
 				{
 					DataObject dataObject = new DataObject(typeof(ViewModels.Control), (sender as TreeView).SelectedItem);
-					DragDrop.DoDragDrop((sender as UserControl), dataObject, DragDropEffects.Move);
+					DragDrop.DoDragDrop((sender as TreeView), dataObject, DragDropEffects.Move);
 				}
 			}
 			catch (Exception ex)
